@@ -112,6 +112,50 @@
     map)
   "Keymap for `gdscript-mode'.")
 
+(easy-menu-define gdscript-mode-menu gdscript-mode-map
+  "Menu for GDScript mode."
+  '("GDScript"
+    ("Script"
+     ["Run" gdscript-godot-run-current-script
+      :help "Run the current script, if it extends MainLoop"]
+     ["Format all" gdscript-format-buffer
+      :active (executable-find gdscript-gdformat-executable)
+      :help "Format the buffer using GDFormat, if installed"]
+     ["Format region" gdscript-format-region
+      :active (executable-find gdscript-gdformat-executable)
+      :help "Format the selected region using GDFormat, if installed"])
+    ("Scene"
+     ["Open" gdscript-godot-edit-current-scene
+      :help "Open the current scene in the Godot editor"]
+     ["Run current" gdscript-godot-run-current-scene
+      :help "Run the current scene"]
+     ["Run current (debug)" gdscript-godot-run-current-scene-debug
+      :help "Run the current scene with debug enabled"])
+    ("Project"
+     ["Open" gdscript-godot-open-project-in-editor
+      :help "Open the project in the Godot editor"]
+     ["Run" gdscript-godot-run-project
+      :help "Run the project's main scene"]
+     ["Run (debug)" (gdscript-godot-run-project-debug '())
+      :help "Run the project's main scene with debug enabled"])
+    ("Debug"
+     ["Collision Shapes" (setq gdscript-hydra--debug-collisions
+                               (not gdscript-hydra--debug-collisions))
+      :help "When enabled, collision shapes and raycasts will be visible."
+      :style toggle
+      :selected gdscript-hydra--debug-collisions]
+     ["Navigation" (setq gdscript-hydra--debug-navigation
+                         (not gdscript-hydra--debug-navigation))
+      :help "When enabled, navigation meshes and polygons will be visible."
+      :style toggle
+      :selected gdscript-hydra--debug-navigation])
+    ("Help"
+     ["Online Documentation" gdscript-docs-online-search-api
+      :help "Search using Godot Docs online API"]
+     ["Browse (local)" gdscript-docs-browse-api
+      :active (not (equal "" gdscript-docs-local-path))
+      :help "Browse local copy of Godot Docs, if it exists"])))
+
 (defun gdscript-hideshow-forward-sexp-function (_arg)
   "Gdscript specific `forward-sexp' function for function `hs-minor-mode'.
 Argument ARG is ignored."
