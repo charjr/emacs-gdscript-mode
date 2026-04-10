@@ -41,8 +41,6 @@
 (defvar gdscript-hydra--open nil)
 (defvar gdscript-hydra--debug nil)
 (defvar gdscript-hydra--editor nil)
-(defvar gdscript-hydra--debug-collisions nil)
-(defvar gdscript-hydra--debug-navigation nil)
 (defvar gdscript-hydra--hydra nil)
 
 (defun gdscript-hydra-show ()
@@ -79,8 +77,8 @@ on hydra checkboxes."
   (setq gdscript-godot--debug-options-hydra
         (remove nil
                 (list
-                 (when gdscript-hydra--debug-collisions "--debug-collisions")
-                 (when gdscript-hydra--debug-navigation "--debug-navigation"))))
+                 (when gdscript-godot--debug-collisions "--debug-collisions")
+                 (when gdscript-godot--debug-navigation "--debug-navigation"))))
 
   (pcase project-or-scene
     (:project (gdscript-hydra--dispatch 'gdscript-godot-run-project
@@ -126,23 +124,23 @@ _n_ [?n?] Visible navigation
                  gdscript-hydra--editor nil)
            (unless gdscript-hydra--debug
              (setq
-              gdscript-hydra--debug-collisions nil
-              gdscript-hydra--debug-navigation nil))) (gdscript-hydra--selected gdscript-hydra--debug))
+              gdscript-godot--debug-collisions nil
+              gdscript-godot--debug-navigation nil))) (gdscript-hydra--selected gdscript-hydra--debug))
     ("e" (setq gdscript-hydra--editor (not gdscript-hydra--editor)
                gdscript-hydra--debug nil
-               gdscript-hydra--debug-collisions nil
-               gdscript-hydra--debug-navigation nil) (gdscript-hydra--selected gdscript-hydra--editor))
+               gdscript-godot--debug-collisions nil
+               gdscript-godot--debug-navigation nil) (gdscript-hydra--selected gdscript-hydra--editor))
     ("p" (gdscript-hydra--run :project))
     ("s" (gdscript-hydra--run :scene))
     ("t" (gdscript-hydra--run :script))
     ("r" (gdscript-hydra--run-last))
     ("h" (gdscript-hydra--select-from-history))
-    ("c" (setq gdscript-hydra--debug-collisions (not gdscript-hydra--debug-collisions)
+    ("c" (setq gdscript-godot--debug-collisions (not gdscript-godot--debug-collisions)
                gdscript-hydra--debug t
-               gdscript-hydra--editor nil) (gdscript-hydra--selected gdscript-hydra--debug-collisions))
-    ("n" (setq gdscript-hydra--debug-navigation (not gdscript-hydra--debug-navigation)
+               gdscript-hydra--editor nil) (gdscript-hydra--selected gdscript-godot--debug-collisions))
+    ("n" (setq gdscript-godot--debug-navigation (not gdscript-godot--debug-navigation)
                gdscript-hydra--debug t
-               gdscript-hydra--editor nil) (gdscript-hydra--selected gdscript-hydra--debug-navigation))
+               gdscript-hydra--editor nil) (gdscript-hydra--selected gdscript-godot--debug-navigation))
     ("g" (gdscript-hydra--open-godot-buffer) :color blue)
     ("a" (gdscript-format-all))
     ("b" (gdscript-format-buffer))

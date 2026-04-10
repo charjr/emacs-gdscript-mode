@@ -139,16 +139,26 @@
      ["Run (debug)" (gdscript-godot-run-project-debug '())
       :help "Run the project's main scene with debug enabled"])
     ("Debug"
-     ["Collision Shapes" (setq gdscript-hydra--debug-collisions
-                               (not gdscript-hydra--debug-collisions))
+     ["Collision Shapes" (setq gdscript-godot--debug-collisions
+                               (not gdscript-godot--debug-collisions))
       :help "When enabled, collision shapes and raycasts will be visible."
       :style toggle
-      :selected gdscript-hydra--debug-collisions]
-     ["Navigation" (setq gdscript-hydra--debug-navigation
-                         (not gdscript-hydra--debug-navigation))
+      :selected gdscript-godot--debug-collisions]
+     ["Paths" (setq gdscript-godot--debug-paths
+                         (not gdscript-godot--debug-paths))
+      :help "When enabled, curve resources used by paths will be visible."
+      :style toggle
+      :selected gdscript-godot--debug-paths]
+     ["Navigation" (setq gdscript-godot--debug-navigation
+                         (not gdscript-godot--debug-navigation))
       :help "When enabled, navigation meshes and polygons will be visible."
       :style toggle
-      :selected gdscript-hydra--debug-navigation])
+      :selected gdscript-godot--debug-navigation]
+     ["Avoidance" (setq gdscript-godot--debug-avoidance
+                         (not gdscript-godot--debug-avoidance))
+      :help "When enabled, avoidance object shapes, radiuses and velocities will be visible."
+      :style toggle
+      :selected gdscript-godot--debug-avoidance])
     ("Help"
      ["Online Documentation" gdscript-docs-online-search-api
       :help "Search using Godot Docs online API"]

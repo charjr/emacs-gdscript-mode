@@ -39,6 +39,11 @@
 ;;;###autoload
 (defvar gdscript-godot--debug-options-hydra :not-list)
 
+(defvar gdscript-godot--debug-collisions nil)
+(defvar gdscript-godot--debug-paths nil)
+(defvar gdscript-godot--debug-navigation nil)
+(defvar gdscript-godot--debug-avoidance nil)
+
 (defvar gdscript-godot--debug-selected-option 1)
 
 (defvar gdscript-godot--debug-options-alist
