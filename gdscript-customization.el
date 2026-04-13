@@ -39,8 +39,15 @@
     :group 'gdscript)
 
 ;; gdscript-indent
-(defcustom gdscript-use-tab-indents t "Use tabs (t) or spaces (nil)."
-  :type 'boolean
+(defcustom gdscript-use-tab-indents 'auto
+  "Determines whether to use tabs or spaces for indentation.
+
+If set to `auto` it will follow the indent style set in the Godot editor.
+Setting it to any other non-nil value will force the use of tabs.
+Setting it to nil will force the use of spaces."
+  :type '(choice (const :tag "Use Godot's editor settings" auto)
+                 (const :tag "Tabs" t)
+                 (const :tag "Spaces" nil))
   :group 'gdscript)
 
 (defcustom gdscript-tab-width 4 "Indentation width."
