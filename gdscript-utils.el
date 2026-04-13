@@ -125,6 +125,12 @@ WARNING: the Godot project must exist for this function to work."
             (if (string-prefix-p "4.0" version) "4" version))
         (error "Could not find the project version")))))
 
+(defun gdscript-util--get-godot-config-file ()
+  (file-name-concat
+   (gdscript-eglot--get-config-dir)
+   (format "editor_settings-%s.tres"
+           (gdscript-util--get-godot-project-version))))
+
 (defun gdscript-util--get-godot-buffer-name (&optional editor)
   "Return buffer name for godot's stdout/stderr output."
   (format (if editor "*godot - %s - Editor*" "*godot - %s*") (gdscript-util--get-godot-project-name)))
