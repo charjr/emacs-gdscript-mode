@@ -176,5 +176,14 @@ variable for later use."
          (index (string-to-number option)))
     (setq gdscript-godot--debug-selected-option index)))
 
+(defun gdscript-godot--indent-tabs-p ()
+  "Determine if indent style set in the Godot editor is tabs"
+  (with-temp-buffer
+    (insert-file-contents (gdscript-util--get-godot-config-file))
+    (goto-char (point-min))
+    (if (search-forward "text_editor/behavior/indent/type = 1" nil t)
+        nil
+      t)))
+
 (provide 'gdscript-godot)
 ;;; gdscript-godot.el ends here
