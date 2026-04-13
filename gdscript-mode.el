@@ -183,7 +183,9 @@ already marked."
 (define-derived-mode gdscript-mode prog-mode "gdscript"
   "Major mode for editing Godot GDScript files."
   (setq-local tab-width gdscript-tab-width)
-  (setq-local indent-tabs-mode gdscript-use-tab-indents)
+  (setq-local indent-tabs-mode (if (equal gdscript-use-tab-indents 'auto)
+                                   (gdscript-godot--indent-tabs-p)
+                                 gdscript-use-tab-indents))
 
   (set-syntax-table gdscript-mode-syntax-table)
   (modify-syntax-entry ?\# "\<" gdscript-mode-syntax-table)
