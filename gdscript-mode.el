@@ -33,6 +33,7 @@
 
 (require 'gdscript-customization)
 (require 'gdscript-docs)
+(require 'gdscript-editor-settings)
 (require 'gdscript-syntax)
 (require 'gdscript-indent-and-nav)
 (require 'gdscript-imenu)
@@ -182,8 +183,8 @@ already marked."
 ;;;###autoload
 (define-derived-mode gdscript-mode prog-mode "GDScript"
   "Major mode for editing Godot GDScript files."
-  (setq-local tab-width gdscript-tab-width)
-  (setq-local indent-tabs-mode gdscript-use-tab-indents)
+  (dolist (el (gdscript-editor-settings (gdscript-util--get-godot-project-version)))
+    (eval `(setq-local ,@el)))
 
   (set-syntax-table gdscript-mode-syntax-table)
   (modify-syntax-entry ?\# "\<" gdscript-mode-syntax-table)
