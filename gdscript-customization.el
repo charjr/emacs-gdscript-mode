@@ -33,18 +33,42 @@
   :version "26"
   :link '(emacs-commentary-link "gdscript"))
 
-(defcustom gdscript-use-type-hints t
-  "If t, inserted snippets contain type hints."
-  :type 'boolean
-    :group 'gdscript)
+(defcustom gdscript-use-type-hints 'auto
+  "Determines whether code snippets should use type hints in GDScript.
 
-;; gdscript-indent
-(defcustom gdscript-use-tab-indents t "Use tabs (t) or spaces (nil)."
-  :type 'boolean
+If set to:
+* 'auto; follow behaviour set in Godot.
+* any non-nil value; use type hints.
+* `nil'; do not use type hints."
+  :type '(choice (const :tag "Enable type hints" t)
+                 (const :tag "Disable type hints" nil)
+                 (const :tag "Follow Godot settings" auto))
   :group 'gdscript)
 
-(defcustom gdscript-tab-width 4 "Indentation width."
-  :type 'integer
+;; gdscript-indent
+(defcustom gdscript-use-tab-indents 'auto
+  "Determines indent style for GDScript.
+
+If set to:
+* 'auto; `indent-tabs-mode' follows style set in Godot.
+* 'ignore; leave `indent-tabs-mode' alone.
+* any other value; use the value, as-is, to set `indent-tabs-mode' locally."
+  :type '(choice (const :tag "Tabs" t)
+                 (const :tag "Spaces" nil)
+                 (const :tag "Follow Godot settings" auto)
+                 (const :tag "Ignore" ignore))
+  :group 'gdscript)
+
+(defcustom gdscript-tab-width 'auto
+  "Determines `tab-width' for GDScript.
+
+If set to:
+* 'auto; `tab-width' follows style set in Godot.
+* 'ignore; leave `tab-width' alone.
+* Any positive `integer'; use the value, as-is, to set `tab-width' locally."
+  :type '(choice integer
+                 (const :tag "Follow Godot settings" auto)
+                 (const :tag "Ignore" ignore))
   :group 'gdscript)
 
 (defcustom gdscript-indent-offset 4 "Default indentation offset for Gdscript."
