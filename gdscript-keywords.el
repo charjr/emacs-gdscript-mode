@@ -29,23 +29,23 @@
 ;;; Code:
 
 (defconst gdscript-annotations
-  '("@abstract"
-    "@export" "@export_category" "@export_color_no_alpha" "@export_custom"
-    "@export_dir" "@export_enum" "@export_exp_easing"
-    "@export_file" "@export_file_path"
-    "@export_flags"
-    "@export_flags_2d_navigation" "@export_flags_2d_physics" "@export_flags_2d_render"
-    "@export_flags_3d_navigation" "@export_flags_3d_physics" "@export_flags_3d_render"
-    "@export_flags_avoidance"
-    "@export_global_dir" "@export_global_file" "@export_group" "@export_multiline"
-    "@export_node_path" "@export_placeholder"
-    "@export_range" "@export_storage" "@export_subgroup" "@export_tool_button"
-    "@icon"
-    "@onready"
-    "@rpc"
-    "@static_unload"
-    "@tool"
-    "@warning_ignore" "@warning_ignore_restore" "@warning_ignore_start"))
+  '("abstract"
+    "export" "export_category" "export_color_no_alpha" "export_custom"
+    "export_dir" "export_enum" "export_exp_easing"
+    "export_file" "export_file_path"
+    "export_flags"
+    "export_flags_2d_navigation" "export_flags_2d_physics" "export_flags_2d_render"
+    "export_flags_3d_navigation" "export_flags_3d_physics" "export_flags_3d_render"
+    "export_flags_avoidance"
+    "export_global_dir" "export_global_file" "export_group" "export_multiline"
+    "export_node_path" "export_placeholder"
+    "export_range" "export_storage" "export_subgroup" "export_tool_button"
+    "icon"
+    "onready"
+    "rpc"
+    "static_unload"
+    "tool"
+    "warning_ignore" "warning_ignore_restore" "warning_ignore_start"))
 
 (defconst gdscript-keywords
   '("and" "as" "assert" "await"
