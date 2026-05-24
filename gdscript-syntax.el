@@ -71,6 +71,9 @@
                                    (1+ space)
                                    (group (1+ (or word ?_))))
                               (1 font-lock-function-name-face))
+                             (,(regexp-opt gdscript-annotations 'non-nil)
+                              1
+                              font-lock-preprocessor-face)
                              (,(rx symbol-start
                                    (or "var" "const")
                                    (1+ space)
