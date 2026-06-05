@@ -1,0 +1,33 @@
+#+title: Transient Menus
+
+
+#+begin_src emacs-lisp
+  (require 'gdscript-util)
+
+  (transient-define-prefix godot ()
+    ["Godot"
+     :description (lambda () (format "Godot: %s" (gdscript-util--get-godot-project-name)))
+     ["Launch"
+      ("m" "Main Scene" gdscript-godot-run-project)
+      ("c" "Current Scene" gdscript-godot-run-current-scene)
+      ]
+     ["Open in Editor"
+      ("p" "Project" gdscript-godot-open-project-in-editor)
+      ]
+     ["Options"
+      ("d" "Debug…" godot--transient-debug-options)]
+     ]
+    )
+#+end_src
+
+
+#+begin_src emacs-lisp
+  (transient-define-prefix godot--transient-debug-options ()
+    ["Godot Debug Options"
+     :description (lambda () (format "Godot Debug Options: %s" (gdscript-util--get-godot-project-name)))
+     [("q" "Go Back" transient-quit-one)]
+     ["Options"
+      ("d" "Debug" keyboard-quit)]
+     ]
+    )
+#+end_src
