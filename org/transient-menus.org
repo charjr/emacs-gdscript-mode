@@ -1,33 +1,154 @@
 #+title: Transient Menus
+#+author: John Charman
+#+property: header-args:emacs-lisp :noweb yes
+
+* Structure
+
+The overall layout of code is as follows:
+
+#+begin_src emacs-lisp :tangle ../gdscript-transient.el
+  ;;; gdscript-transient.el --- Godot transient menus -*- lexical-binding: t; -*-
+
+  <<Copyright Notice()>>
+
+  ;; Author: John Charman <jchar@mailfence.com>
+  ;; Maintainer: Jen-Chieh Shen <jcs090218@gmail.com>
+
+  <<GPL License>>
+
+  ;;; Commentary:
+
+  ;; Discoverable menus for common tasks in Godot game development.
+  ;; - Call `godot' for tasks that require running the Godot executable.
+  ;; - Call `gdscript' for editing tasks in Emacs.
+
+  ;;; Code:
+
+  <<Built-in Dependencies>>
+  <<GDScript Dependencies>>
+
+  <<Variables>>
+
+  <<Godot Menu>>
+
+  <<GDScript Menu>>
+
+  (provide 'gdscript-transient)
+  ;;; gdscript-transient.el ends here
+#+end_src
+
+Expressions wrapped in double angular brackets are [[info:org#Noweb Reference Syntax][Noweb references]], each reference another block of code within this document.
+
+Most of this will be explained in order of appearance, apart from the [[*Boilerplate][Boilerplate]] section which doesn't require explanation.
 
 
+
+* Requirements
+
+Ideally, any dependency should be built-in or /in-house/.
+
+Of course, [[info:Transient][Transient]] is required to define transient menus.
+
+#+name: Built-in Dependencies
 #+begin_src emacs-lisp
-  (require 'gdscript-util)
+  (require 'transient)
+#+end_src
 
-  (transient-define-prefix godot ()
-    ["Godot"
-     :description (lambda () (format "Godot: %s" (gdscript-util--get-godot-project-name)))
-     ["Launch"
-      ("m" "Main Scene" gdscript-godot-run-project)
-      ("c" "Current Scene" gdscript-godot-run-current-scene)
-      ]
-     ["Open in Editor"
-      ("p" "Project" gdscript-godot-open-project-in-editor)
-      ]
-     ["Options"
-      ("d" "Debug…" godot--transient-debug-options)]
-     ]
+Then [[../gdscript-utils.el][GDScript Utils]] is used to display the project name within menus.
+
+#+name: GDScript Dependencies
+#+begin_src emacs-lisp
+  (require 'gdscript-utils)
+#+end_src
+
+* Variables
+
+Using a custom variable we can 
+
+#+name: Variables
+#+begin_src emacs-lisp
+  ;; gdscript-fill-paragraph.el
+  (defcustom godot-default-args '()
+    "Default arguments to pass when running Godot"
+    :group 'godot
+    :type '(set
+            (string :tag "Debug" "--debug")
+            (string :tag "Visible collisions" "--debug-collisions")
+            (string :tag "Visible paths" "--debug-paths")
+            (string :tag "Visible navigation" "--debug-navigation")
+            (string :tag "Visible avoidance" "--debug-avoidance")
+            (string :tag "Print StringName allocations" "--debug-stringnames"))
     )
 #+end_src
 
+* Godot Menu
 
+#+name: Godot Menu
 #+begin_src emacs-lisp
-  (transient-define-prefix godot--transient-debug-options ()
-    ["Godot Debug Options"
-     :description (lambda () (format "Godot Debug Options: %s" (gdscript-util--get-godot-project-name)))
-     [("q" "Go Back" transient-quit-one)]
-     ["Options"
-      ("d" "Debug" keyboard-quit)]
-     ]
-    )
+  (transient-define-prefix godot ()
+    "Menu for launching Godot."
+    :value godot-default-args
+    ["Godot"
+     :description (lambda () (format "Godot: %s"
+                                     (gdscript-util--get-godot-project-name)))
+     ("-d" "Debug" ("-d" "--debug"))
+     ("-c" "Visible Collisions" "--debug-collisions")
+     ("-p" "Visible Paths" "--debug-paths")
+     ("-n" "Visible Navigation" "--debug-navigation")
+     ("-a" "Visible Avoidance" "--debug-avoidance")
+     ("-s" "Print StringName allocations" "--debug-stringnames")]
+    
+    [["Run"
+      ("f5" "Project" gdscript-godot-run-project)
+      ("f6" "Current Scene" gdscript-godot-run-current-scene)]
+     ["Open"
+      ("p" "Project" gdscript-godot-open-project-in-editor)
+      ("s" "Scene" gdscript-godot-edit-current-scene)]])
+#+end_src
+
+
+* GDScript Menu
+
+#+name: GDScript Menu
+#+begin_src emacs-lisp
+  (transient-define-prefix gdscript ()
+    ["GDScript"
+     :description (lambda () (format "GDScript: %s"
+                                     (gdscript-util--get-godot-project-name)))
+     ["Format"
+      ("f" "Buffer" gdscript-format-buffer)
+      ("F" "All" gdscript-format-all)]
+     ["Docs"
+      ("d" "Docs" gdscript-docs-browse-api)]])
+#+end_src
+
+* Boilerplate
+
+** Copyright
+The copyright notice is an expression that should keep up to date with the current year. It is evaluated when this file is tangled (note the parenthesis at the end of <<Copyright Notice()>> above).
+
+#+name: Copyright Notice
+#+begin_src emacs-lisp
+  (format ";; Copyright (C) 2020-%d GDQuest and contributors."
+          (calendar-extract-year (calendar-current-date)))
+#+end_src
+
+** License
+
+#+name: GPL License
+#+begin_src emacs-lisp
+  ;; This file is not part of GNU Emacs.
+
+  ;; This program is free software; you can redistribute it and/or modify
+  ;; it under the terms of the GNU General Public License as published by
+  ;; the Free Software Foundation, either version 3 of the License, or
+  ;; (at your option) any later version.
+
+  ;; This program is distributed in the hope that it will be useful,
+  ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ;; GNU General Public License for more details.
+
+  ;; You should have received a copy of the GNU General Public License
+  ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #+end_src
