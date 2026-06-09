@@ -97,13 +97,26 @@ Using a custom variable we can
      ("-n" "Visible Navigation" "--debug-navigation")
      ("-a" "Visible Avoidance" "--debug-avoidance")
      ("-s" "Print StringName allocations" "--debug-stringnames")]
-    
+
     [["Run"
       ("f5" "Project" gdscript-godot-run-project)
       ("f6" "Current Scene" gdscript-godot-run-current-scene)]
      ["Open"
       ("p" "Project" gdscript-godot-open-project-in-editor)
       ("s" "Scene" gdscript-godot-edit-current-scene)]])
+
+  (transient-define-suffix tsc-suffix-print-args (prefix)
+    "Report the PREFIX-ARG, prefix's scope, and infix values."
+    :transient t
+    (interactive "P")
+    (let ((args (transient-args (oref transient-current-prefix command)))
+          (scope (transient-scope)))
+      (message "prefix-arg: %S prefix's scope: %S transient-args: %S"
+               prefix scope args)))
+
+  (transient-define-prefix foo ()
+    ["Flags" ("-c" "C Flag" "--cee")]
+    ["Command" ("m" "Message" tsc-suffix-print-args)])
 #+end_src
 
 
