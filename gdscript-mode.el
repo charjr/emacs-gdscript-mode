@@ -106,7 +106,7 @@
   "<f7>" 'gdscript-debug-continue
   "C-c C-d s" 'gdscript-debug-step
   ;; Debugger Hydra
-  "C-c n" 'gdscript-debug-hydra)
+  "C-c C-n" 'gdscript-debug-hydra)
 
 (easy-menu-define gdscript-mode-menu gdscript-mode-map
   "Menu for GDScript mode."
