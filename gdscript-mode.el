@@ -74,7 +74,7 @@
   "<backspace>" 'gdscript-indent-dedent-line-backspace
   "<backtab>" 'gdscript-indent-dedent-line
   ;; Insertion.
-  "C-c i" 'gdscript-completion-insert-file-path-at-point
+  "C-c C-i" 'gdscript-completion-insert-file-path-at-point
   ;; Formatting.
   "C-c C-f r" 'gdscript-format-region
   "C-c C-f b" 'gdscript-format-buffer
