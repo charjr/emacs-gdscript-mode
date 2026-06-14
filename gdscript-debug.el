@@ -2317,7 +2317,7 @@ In that buffer, `gdscript-debug--buffer-type' must be equal to BUFFER-TYPE."
            (start (window-start window))
            (p (window-point window)))
       (erase-buffer)
-      (insert "Enb Location\n")
+      (insert "End Location\n")
       (dolist (breakpoint gdscript-debug--breakpoints)
         (let ((indicator (if (not gdscript-debug--skip-breakpoints)
                              (propertize (format "%-4s" "y") 'font-lock-face
