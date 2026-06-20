@@ -121,10 +121,16 @@ ORIG-FUN is function we wrap around.  ARGS are argument to ORIG-FUN function."
 
 (defun gdscript-docs--eww-setup ()
   "Convenience setup for pages with Godot documentation."
-  (when (string-match "docs.godotengine" (plist-get eww-data :url))
-    (setq multi-isearch-next-buffer-function nil)
-    (gdscript-docs--rename-eww-buffer)
-    (gdscript-docs--filter-content-to-main-div)))
+  (let ((url (plist-get eww-data :url)))
+    (when (or (string-match "docs.godotengine"  url)
+              (string-match gdscript-docs-local-path url))
+      (setq multi-isearch-next-buffer-function nil)
+      (gdscript-docs--rename-eww-buffer)
+      (gdscript-docs--filter-content-to-main-div))))
+
+(add-to-list 'eww-readable-urls "docs.godotengine")
+(when (file-exists-p gdscript-docs-local-path)
+  (add-to-list 'eww-readable-urls gdscript-docs-local-path))
 
 (advice-add 'eww-follow-link :around #'gdscript-docs--eww-follow-link)
 (add-hook 'eww-after-render-hook #'gdscript-docs--eww-setup)
