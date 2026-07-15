@@ -1,0 +1,25 @@
+# Documentation: <URL:https://editorconfig.org/>.
+
+# Stop searching for .editorconfig files after reading this one.
+root = true
+
+
+# Match all file names, unless more specific match later.
+[*]
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+
+[{*.mk,Makefile,rules}]
+indent_style = tab
+
+
+[{*.md,*.yaml,.yml}]
+indent_size = 2
+
+
+# Local variables:
+# coding: utf-8
+# End:
+# vim: fileencoding=utf-8 filetype=dosini :
